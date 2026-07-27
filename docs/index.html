@@ -26,7 +26,7 @@
     </div>
 
     <section id="dashboard" class="page active">
-      <header><div><h1>监控面板</h1><p>使用当前电脑网络独立监控Amazon报价卖家</p></div><button class="primary" id="add-btn">＋ 添加监控</button></header>
+      <header><div><h1>监控面板</h1><p>使用当前电脑网络独立监控Amazon当前购物车卖家</p></div><button class="primary" id="add-btn">＋ 添加监控</button></header>
       <div class="metrics">
         <article><span>监控商品</span><strong id="m-total">0</strong></article>
         <article><span>运行中</span><strong id="m-running">0</strong></article>
@@ -38,7 +38,7 @@
 
     <section id="history" class="page">
       <header><div><h1>检测历史</h1><p>结果保存在Chrome/Edge本地，可随时清空或导出</p></div><div><button id="export-btn">导出数据</button> <button id="clear-history" class="danger-btn">清空历史</button></div></header>
-      <div class="panel table-wrap"><table><thead><tr><th>检测时间</th><th>商品</th><th>状态</th><th>报价数</th><th>疑似跟卖</th><th>结果</th></tr></thead><tbody id="history-body"></tbody></table></div>
+      <div class="panel table-wrap"><table><thead><tr><th>检测时间</th><th>商品</th><th>状态</th><th>购物车卖家</th><th>是否白名单</th><th>结果</th></tr></thead><tbody id="history-body"></tbody></table></div>
     </section>
 
     <section id="settings" class="page">
@@ -62,7 +62,7 @@
         <article class="panel"><em>3</em><h3>加载扩展</h3><p>开启“开发者模式”，点击“加载已解压的扩展程序”，选择 <code>extension</code> 文件夹。</p></article>
         <article class="panel"><em>4</em><h3>刷新本网页</h3><p>页面顶部显示“本地扩展已连接”后，即可添加监控任务。</p></article>
       </div>
-      <div class="panel permissions"><h3>扩展为什么需要这些权限？</h3><p><b>Amazon站点：</b>读取公开报价卖家；<b>标签页：</b>短暂打开报价页执行检测；<b>通知：</b>发现状态变化时显示系统通知；<b>本地存储：</b>保存任务和历史。</p></div>
+      <div class="panel permissions"><h3>扩展为什么需要这些权限？</h3><p><b>Amazon站点：</b>读取当前购物车卖家；<b>标签页：</b>短暂打开商品页执行检测；<b>通知：</b>发现状态变化时显示系统通知；<b>本地存储：</b>保存任务和历史。</p></div>
     </section>
   </main>
 
