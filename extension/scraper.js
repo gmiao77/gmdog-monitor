@@ -22,7 +22,7 @@ async function openAllBuyingOptions() {
   ];
   const button = selectors.map(selector => document.querySelector(selector)).find(Boolean);
   if (!button) return false;
-  button.click();
+  (button.closest("a, button") || button).click();
   return waitForOffers();
 }
 async function scrape() {
