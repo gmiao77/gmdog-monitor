@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="amazon-monitor-app" content="v1">
+  <meta name="theme-color" content="#111a2e">
+  <title>Amazon 跟卖雷达</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <aside>
+    <div class="brand"><i>◎</i><div><b>跟卖雷达</b><small>LOCAL MONITOR</small></div></div>
+    <nav>
+      <button class="active" data-page="dashboard">监控面板</button>
+      <button data-page="history">检测历史</button>
+      <button data-page="settings">运行设置</button>
+      <button data-page="help">安装说明</button>
+    </nav>
+    <div class="privacy">数据只保存在<br>你的浏览器本地</div>
+  </aside>
+  <main>
+    <div id="extension-banner" class="banner">
+      <div><b>未连接本地监控扩展</b><span>网页可以访问，但安装扩展后才能使用本地网络自动检测。</span></div>
+      <button data-page-jump="help">查看安装方法</button>
+    </div>
+
+    <section id="dashboard" class="page active">
+      <header><div><h1>监控面板</h1><p>使用当前电脑网络独立监控Amazon报价卖家</p></div><button class="primary" id="add-btn">＋ 添加监控</button></header>
+      <div class="metrics">
+        <article><span>监控商品</span><strong id="m-total">0</strong></article>
+        <article><span>运行中</span><strong id="m-running">0</strong></article>
+        <article class="danger"><span>疑似跟卖</span><strong id="m-alert">0</strong></article>
+        <article><span>检测异常</span><strong id="m-error">0</strong></article>
+      </div>
+      <div id="task-list" class="cards"></div>
+    </section>
+
+    <section id="history" class="page">
+      <header><div><h1>检测历史</h1><p>结果保存在Chrome/Edge本地，可随时清空或导出</p></div><div><button id="export-btn">导出数据</button> <button id="clear-history" class="danger-btn">清空历史</button></div></header>
+      <div class="panel table-wrap"><table><thead><tr><th>检测时间</th><th>商品</th><th>状态</th><th>报价数</th><th>疑似跟卖</th><th>结果</th></tr></thead><tbody id="history-body"></tbody></table></div>
+    </section>
+
+    <section id="settings" class="page">
+      <header><div><h1>运行设置</h1><p>全部功能免费，不依赖第三方通知服务</p></div></header>
+      <form id="settings-form" class="panel form-grid">
+        <h3>本地通知</h3>
+        <label>桌面通知<select name="desktopNotifications"><option value="true">开启</option><option value="false">关闭</option></select></label>
+        <label>恢复通知<select name="recoveryNotifications"><option value="true">跟卖消失时通知</option><option value="false">只通知新跟卖</option></select></label>
+        <label>历史记录上限<select name="historyLimit"><option value="200">200条</option><option value="500">500条</option><option value="1000">1000条</option></select></label>
+        <label>打开检测标签页<select name="focusScanTab"><option value="false">后台打开</option><option value="true">前台打开（排查验证码）</option></select></label>
+        <div class="wide note">电脑休眠期间不会执行监控；唤醒后扩展将恢复计划。浏览器必须保持运行。</div>
+        <div class="wide"><button class="primary" type="submit">保存设置</button></div>
+      </form>
+    </section>
+
+    <section id="help" class="page">
+      <header><div><h1>安装本地扩展</h1><p>只需安装一次，Chrome和Edge均可</p></div></header>
+      <div class="help-grid">
+        <article class="panel"><em>1</em><h3>下载并解压项目</h3><p>下载完整ZIP，将其中的 <code>extension</code> 文件夹保留在固定位置。</p></article>
+        <article class="panel"><em>2</em><h3>打开扩展管理</h3><p>Chrome输入 <code>chrome://extensions</code>；Edge输入 <code>edge://extensions</code>。</p></article>
+        <article class="panel"><em>3</em><h3>加载扩展</h3><p>开启“开发者模式”，点击“加载已解压的扩展程序”，选择 <code>extension</code> 文件夹。</p></article>
+        <article class="panel"><em>4</em><h3>刷新本网页</h3><p>页面顶部显示“本地扩展已连接”后，即可添加监控任务。</p></article>
+      </div>
+      <div class="panel permissions"><h3>扩展为什么需要这些权限？</h3><p><b>Amazon站点：</b>读取公开报价卖家；<b>标签页：</b>短暂打开报价页执行检测；<b>通知：</b>发现状态变化时显示系统通知；<b>本地存储：</b>保存任务和历史。</p></div>
+    </section>
+  </main>
+
+  <dialog id="task-dialog"><form id="task-form">
+    <input type="hidden" name="id">
+    <div class="modal-head"><div><h2>添加监控商品</h2><p>支持美国、加拿大、英国、德国、法国、意大利、西班牙和日本站</p></div><button type="button" class="close-dialog">×</button></div>
+    <label>商品备注<input name="name" placeholder="例如：浴室置物架"></label>
+    <label>Amazon链接或ASIN<input name="url" required placeholder="https://www.amazon.com/dp/B0XXXXXXXX"></label>
+    <label>授权卖家白名单<textarea name="allowedSellers" placeholder="每行一个Seller ID或完整卖家名称"></textarea><small>请把自己的Seller ID加入白名单，否则也会被标记为跟卖。</small></label>
+    <div class="row"><label>开始时间<input name="startTime" type="time" value="08:00"></label><label>结束时间<input name="endTime" type="time" value="23:00"></label><label>检测间隔<select name="intervalMinutes"><option value="30">30分钟</option><option value="60">60分钟</option><option value="120">120分钟</option></select></label></div>
+    <button class="primary full" type="submit">保存监控任务</button>
+  </form></dialog>
+  <div id="toast"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
