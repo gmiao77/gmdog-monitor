@@ -15,7 +15,7 @@ function due(task){return !task.lastCheckedMs||Date.now()-task.lastCheckedMs>=ta
 async function notify(title,message){const {settings}=await getStore();if(!settings.desktopNotifications)return;await chrome.notifications.create({type:"basic",iconUrl:chrome.runtime.getURL("icon.svg"),title,message,priority:2})}
 async function waitTab(tabId,timeout=60000){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{chrome.tabs.onUpdated.removeListener(listener);reject(Error("Amazon页面加载超时"))},timeout);function listener(id,info){if(id===tabId&&info.status==="complete"){clearTimeout(timer);chrome.tabs.onUpdated.removeListener(listener);setTimeout(resolve,2200)}}chrome.tabs.onUpdated.addListener(listener)})}
 async function scrapeTask(task){
-  const url=`https://${task.marketplace}/gp/product/ajax/ref=dp_aod_ALL_mbc?asin=${task.asin}&pc=dp`;
+  const url=`https://${task.marketplace}/dp/${task.asin}`;
   const {settings}=await getStore();let tab;
   try{tab=await chrome.tabs.create({url,active:Boolean(settings.focusScanTab)});await waitTab(tab.id);const result=await chrome.tabs.sendMessage(tab.id,{type:"SCRAPE_OFFERS"});if(!result?.ok)throw Error(result?.error||"读取报价失败");return result}
   finally{if(tab?.id)chrome.tabs.remove(tab.id).catch(()=>{})}
