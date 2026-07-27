@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Amazon 跟卖雷达 - 本地监控器",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "使用你的本地网络定时检测Amazon报价卖家，数据仅保存在浏览器。",
   "permissions": ["alarms", "storage", "tabs", "notifications"],
   "host_permissions": [
