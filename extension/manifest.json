@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Amazon 跟卖雷达 - 本地监控器",
+  "version": "1.0.0",
+  "description": "使用你的本地网络定时检测Amazon报价卖家，数据仅保存在浏览器。",
+  "permissions": ["alarms", "storage", "tabs", "notifications"],
+  "host_permissions": [
+    "https://*.amazon.com/*",
+    "https://*.amazon.ca/*",
+    "https://*.amazon.co.uk/*",
+    "https://*.amazon.de/*",
+    "https://*.amazon.fr/*",
+    "https://*.amazon.it/*",
+    "https://*.amazon.es/*",
+    "https://*.amazon.co.jp/*"
+  ],
+  "background": {"service_worker": "background.js", "type": "module"},
+  "content_scripts": [
+    {
+      "matches": ["https://gmiao77.github.io/gmdog-monitor/*", "http://localhost/*", "http://127.0.0.1/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://*.amazon.com/*", "https://*.amazon.ca/*", "https://*.amazon.co.uk/*",
+        "https://*.amazon.de/*", "https://*.amazon.fr/*", "https://*.amazon.it/*",
+        "https://*.amazon.es/*", "https://*.amazon.co.jp/*"
+      ],
+      "js": ["scraper.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {"default_title": "打开Amazon跟卖雷达"},
+  "web_accessible_resources": [{"resources": ["icon.svg"], "matches": ["<all_urls>"]}]
+}
